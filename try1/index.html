@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>try1 &#128655;</h1>
+    <script src=" https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      axios.get(`https://emojihub.yurace.pro/api/random`).then((Response) => {
+        console.log(Response.data);
+      });
+    </script>
+  </body>
+</html>

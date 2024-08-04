@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="header">
+        <div class="h1-container"><h1>חיפוש פרטי רכב</h1></div>
+      </div>
+      <div class="input-box">
+        <label for="idInput">מספר רכב</label>
+        <input id="idInput" type="number" />
+        <button type="button" class="btn">סע</button>
+      </div>
+      <div class="results-box">
+        <h2 class="diplay-results">תוצאות</h2>
+      </div>
+    </div>
+
+    <script src=" https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      //   'AMBITION';
+      // 5984053
+      const idInput = document.querySelector('#idInput');
+      const resultsBox = document.querySelector('.results-box');
+      const btn = document.querySelector('.btn');
+      let results;
+      btn.addEventListener('click', function () {
+        resultsBox.innerHTML = '  <h2 class="diplay-results">תוצאות</h2>';
+        console.log(idInput.value);
+        const carId = Number(idInput.value);
+        axios
+          .get(
+            `https://data.gov.il/api/3/action/datastore_search?resource_id=053cea08-09bc-40ec-8f7a-156f0677aff3&q=${carId}`
+          )
+          .then(function (response) {
+            results = response.data.result.records[0];
+            console.log(results, 'type:', typeof results);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(() => {
+            for (let key in results) {
+              console.log(`${key}: `);
+              resultsBox.innerHTML += `<p>${key}: <span>${results[key]}</span></p>`;
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
